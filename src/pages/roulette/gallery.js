@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import { Container, Typography, Divider, Grid, Avatar, Badge } from "@mui/material";
 import FooterApp from "../../components/FooterApp";
 import HeaderApp from "../../components/HeaderApp";
-import { getHistory } from "../../db";
+import { getHistory, clearHistory } from "../../db";
 import { members } from "../../membersData";
 import { useNavigate } from 'react-router-dom';
 
@@ -40,11 +40,23 @@ function Gallery() {
         fetchData();
     }, []);
 
+    const clear = () => {
+        clearHistory();
+        window.location.reload();
+    };
+
     return(
         <div className='container' style={{ backgroundColor: '#FDECEF', minHeight: '100vh', marginTop: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <HeaderApp />
             <Container className="App" maxWidth="sm" style={{ textAlign: 'center', marginTop:'30px' }}>
-            <p style={{ textDecoration: 'underline', cursor: 'pointer', color: '#f50057', fontSize: '12px', textAlign: 'left' }} onClick={() => navigate('/')}>Back to Home</p>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <p style={{ textDecoration: 'underline', cursor: 'pointer', color: '#f50057', fontSize: '12px', textAlign: 'left' }} onClick={() => navigate('/')}>Back to Home</p>
+                <p style={{ textDecoration: 'underline', cursor: 'pointer', color: '#f50057', fontSize: '12px', textAlign: 'right' }} onClick={() => {
+                    if (window.confirm('Apakah Anda yakin ingin menghapus semua data riwayat?')) {
+                        clear();
+                    }
+                }}>Clear History</p>
+            </div>
                 <Typography variant='h4' style={{ background: 'linear-gradient(to right, red, purple)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom:'20px' }}>
                    Roullete History
                 </Typography>
