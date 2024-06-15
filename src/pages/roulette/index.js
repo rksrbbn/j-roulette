@@ -211,7 +211,7 @@ const Roulette = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
                             <small style={{color: '#f50057'}}>Roulette is Finished. You got {memberRoulette}.</small>
                             <Button fullWidth variant='outlined' color='error' onClick={handleReset} style={{marginTop: '10px'}}>Try Again</Button>
-                            <Button fullWidth variant='outlined' color='error' style={{marginTop: '10px'}}>Roulette Gallery</Button>
+                            <Button fullWidth variant='outlined' color='error' onClick={() => navigate('/gallery')} style={{marginTop: '10px'}}>Roulette Gallery</Button>
                         </div>
                     )}
 
