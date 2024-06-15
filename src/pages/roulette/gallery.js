@@ -51,7 +51,7 @@ function Gallery() {
                 <Divider/>
 
                 {memberList.length > 0 ?
-                <Grid container spacing={2} justifyContent="center" style={{ marginTop: '20px', fontSize: { xs: '10px', sm: '12px', md: '14px', lg: '16px' }, overflowY: 'auto' }}>
+                <Grid container spacing={2} justifyContent="center" style={{ marginTop: '20px', fontSize: { xs: '10px', sm: '12px', md: '14px', lg: '16px' } }}>
                         {memberList.map((member, index) => (
                         <Grid item xs={3} sm={3} md={3} lg={3} key={member.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
                           <Badge badgeContent={'X'+member.count} color="error" anchorOrigin={{
