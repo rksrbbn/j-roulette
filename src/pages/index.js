@@ -17,6 +17,9 @@ function Pages()
                     <div style={{ marginBottom: '30px', cursor: 'pointer', backgroundColor: '#f50057', color: 'white', padding: '10px', borderRadius: '14px' }} onClick={() => navigate('/roulette')}>
                         2S Roulette
                     </div>
+                    <div style={{ marginBottom: '30px', cursor: 'pointer', backgroundColor: '#f50057', color: 'white', padding: '10px', borderRadius: '14px' }} onClick={() => navigate('/gallery')}>
+                        Gallery
+                    </div>
                 </div>
             </Container>
             <FooterApp />

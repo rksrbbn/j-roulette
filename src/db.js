@@ -3,7 +3,7 @@ import Dexie from "dexie";
 export const db = new Dexie("j-roulette");
 
 db.version(1).stores({
-  history: "++id, memberName"
+  history: "++id, memberName, timestamp"
 });
 
 export const addHistory = async (history) => {

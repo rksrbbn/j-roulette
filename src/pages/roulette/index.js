@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
-import { Container } from '@mui/material';
+import { Container, Divider } from '@mui/material';
 import HeaderApp from '../../components/HeaderApp';
 import FooterApp from '../../components/FooterApp';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 import { members } from '../../membersData';
+import { addHistory } from '../../db';
 
 const Roulette = () => {
   const navigate = useNavigate();
@@ -57,6 +58,12 @@ const Roulette = () => {
     setPickNumber(0);
     setIsPicking(false);
     setWinner([]);
+    setRouletteResult([]);
+    setMemberRoulette('');
+    setRNum(0);
+    setIsPickRNum(false);
+    const shuffledMembers = members.sort(() => 0.5 - Math.random());
+    setLineup(shuffledMembers.slice(0, 16).map(member => member.alias));
   }
 
   const [winner, setWinner] = useState([]);
@@ -72,7 +79,7 @@ const Roulette = () => {
       if (winners.size >= 48) {
         clearInterval(interval);
       }
-    }, 300); // Tambahkan angka setiap 300ms
+    }, 200); // Tambahkan angka setiap 200ms
   }
 
   const containerRef = useRef(null);
@@ -86,10 +93,45 @@ const Roulette = () => {
   const [rNum, setRNum] = useState(0);
   const [isPickRNum, setIsPickRNum] = useState(false);
 
+//   [{id: 1, name: 'Member 1', winners: []}, {id: 2, name: 'Member 2', winners: []}, {id: 3, name: 'Member 3', winners: []}]
+  const [rouletteResult, setRouletteResult] = useState([]);
+  const [memberRoulette, setMemberRoulette] = useState('');
+
   const handleRNum = () => {
-    setIsPickRNum(true);
-    setRNum(getRandomNumber(48));
     setWinner([]);
+    setIsPickRNum(true);
+    const newRNum = getRandomNumber(48);
+    setRNum(newRNum);
+  }
+
+  const handleRouletteMember = () => {
+    // Menyimpan member dan nomor yang sudah dipilih
+    let remainingMembers = [...lineup];
+    let remainingNumbers = Array.from({ length: 48 }, (_, i) => i + 1);
+
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < 16) { // 16 adalah jumlah member pada lineup
+        // Pilih 3 nomor acak dari nomor yang tersisa
+        const randomNumbers = remainingNumbers.sort(() => 0.5 - Math.random()).slice(0, 3);
+        remainingNumbers = remainingNumbers.filter(num => !randomNumbers.includes(num));
+
+        // Pilih 1 member acak dari member yang tersisa
+        const randomMemberIndex = Math.floor(Math.random() * remainingMembers.length);
+        const randomMember = remainingMembers[randomMemberIndex];
+        remainingMembers.splice(randomMemberIndex, 1); // Hapus member yang sudah dipilih
+
+        if (randomNumbers.includes(rNum)) {
+          addHistory({ memberName: randomMember, timestamp: new Date().toISOString() });
+          setMemberRoulette(randomMember);
+        }
+        // Tambahkan hasil roulette ke state
+        setRouletteResult(prevResults => [...prevResults, { name: randomMember, winners: randomNumbers }]);
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 100); // Menambahkan data rouletteResult setiap 100ms
   }
 
   return (
@@ -106,28 +148,35 @@ const Roulette = () => {
 
             <Typography variant="h4" style={{color:'#f50057'}}>{number}</Typography>
             {pickNumber === 0 && (
-            <Button onClick={handleButtonClick}>
+            <Button color='error' onClick={handleButtonClick}>
                 {isPicking ? 'Stop Number' : 'Pick Number'}
             </Button>
             )}
             {pickNumber !== 0 && (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <small style={{color:'#f50057'}}>Your Queue Number is {pickNumber}!</small>
-                    <Button onClick={() => {
+                    {/* <Button onClick={() => {
                         handleReset();
                     }}>
                         Reset
-                    </Button>
+                    </Button> */}
 
                     <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-                        {winner.length > 0 ? (
-                            <Typography style={{ color: '#f50057' }}>Winners List</Typography>
-                        ) : winner.length === 0 && !isPickRNum ? (
-                            <Button onClick={handleWinner} fullWidth variant='contained' color='warning'>Start Pick Random Winner</Button>
-                        ) : winner.length === 0 && isPickRNum ? (
+                        {winner.length > 0 && (
+                            <>
+                                <Typography style={{ color: '#f50057', marginTop: '10px' }}>Winners List</Typography>
+                                <Divider />
+                            </>
+                        )}
+                        {winner.length === 0 && !isPickRNum ? (
+                            <Button onClick={handleWinner} fullWidth variant='contained' color='error'>Start Pick Random Winner</Button>
+                        ) : null}
+                        {winner.length === 0 && isPickRNum ? (
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <Typography style={{ color: '#f50057' }}>Your Roulette Number is {rNum}</Typography>
-                                <Button variant='outlined' color='error' onClick={() => setIsPickRNum(false)}>Start Roulette Member</Button>
+                                {rouletteResult.length === 0 ? (
+                                    <Button variant='outlined' color='error' onClick={handleRouletteMember}>Start Roulette Member</Button>
+                                ) : null}
                             </div>
                         ) : null}
                     </div>
@@ -142,23 +191,46 @@ const Roulette = () => {
                                     {index + 1}. Number {win} Won a Roulette!
                                 </small>
                             ))}
-                    </div>
+                        </div>
                     )}
 
-                    {winner.length >= 48 && (
-                        <Button onClick={() => setWinner([])}>Reset Winner</Button>
+                    {rouletteResult.length > 0 && (
+                        <div 
+                        className="scroll-container"
+                        ref={containerRef}
+                        style={{ display: 'flex', width: '100%', flexDirection: 'column', alignItems: 'center', maxHeight: '200px', overflowY: 'auto', backgroundColor: '#fff', padding: '10px', borderRadius: '10px' }}>
+                            {rouletteResult.map((result, index) => (
+                                <small key={index} style={{color: result.winners.includes(rNum) ? 'gold' : '#f50057', fontWeight: result.winners.includes(rNum) ? 'bold' : 'normal'}}>
+                                    {index + 1}. [{result.winners.join(',')}] Got {result.name}
+                                </small>
+                            ))}
+                        </div>
                     )}
+
+                    {rouletteResult.length >= 16 && (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+                            <small style={{color: '#f50057'}}>Roulette is Finished. You got {memberRoulette}.</small>
+                            <Button fullWidth variant='outlined' color='error' onClick={handleReset} style={{marginTop: '10px'}}>Try Again</Button>
+                            <Button fullWidth variant='outlined' color='error' style={{marginTop: '10px'}}>Roulette Gallery</Button>
+                        </div>
+                    )}
+
+                    
+
+                    {/* {winner.length >= 48 && (
+                        <Button onClick={() => setWinner([])}>Reset Winner</Button>
+                    )} */}
 
                     {/* Jika pickNumber tidak ada di dalam winner tampilkan pesan "You Don't Won a Roulette" */}
                     {pickNumber !== 0 && winner.length >= 48 && !winner.includes(pickNumber) ? (
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <small style={{color:'#f50057'}}>Sorry, You didn't win the roulette!</small>
-                            <Button onClick={handleReset}>Try Again</Button>
+                            <Button variant='outlined' color='error' style={{marginTop: '10px'}} onClick={handleReset}>Try Again</Button>
                         </div>
                     ) : pickNumber !== 0 && winner.length >= 48 && winner.includes(pickNumber) ? (
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <small style={{color:'#f50057'}}>You have Win a Roulette!</small>
-                            <Button variant='outlined'  color='error' onClick={handleRNum}>Get Your Roulette Number</Button>
+                            <Button variant='outlined'  color='error' onClick={handleRNum} style={{marginTop: '10px'}}>Get Your Roulette Number</Button>
                         </div>
                     ) : null}
                 </div>
