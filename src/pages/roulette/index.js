@@ -223,7 +223,7 @@ const Roulette = () => {
 
                     {/* Jika pickNumber tidak ada di dalam winner tampilkan pesan "You Don't Won a Roulette" */}
                     {pickNumber !== 0 && winner.length >= 48 && !winner.includes(pickNumber) ? (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
                             <small style={{color:'#f50057'}}>Sorry, You didn't win the roulette!</small>
                             <Button variant='outlined' color='error' style={{marginTop: '10px'}} onClick={handleReset}>Try Again</Button>
                         </div>
