@@ -228,7 +228,7 @@ const Roulette = () => {
                             <Button variant='outlined' color='error' style={{marginTop: '10px'}} onClick={handleReset}>Try Again</Button>
                         </div>
                     ) : pickNumber !== 0 && winner.length >= 48 && winner.includes(pickNumber) ? (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
                             <small style={{color:'#f50057'}}>You have Win a Roulette!</small>
                             <Button variant='outlined'  color='error' onClick={handleRNum} style={{marginTop: '10px'}}>Get Your Roulette Number</Button>
                         </div>
