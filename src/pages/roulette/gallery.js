@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { Container, Typography, Divider, Grid, Avatar, Badge, Button } from "@mui/material";
+import { Container, Typography, Divider, Grid, Avatar, Badge } from "@mui/material";
 import FooterApp from "../../components/FooterApp";
 import HeaderApp from "../../components/HeaderApp";
 import { getHistory } from "../../db";
@@ -44,13 +44,14 @@ function Gallery() {
         <div className='container' style={{ backgroundColor: '#FDECEF', minHeight: '100vh', marginTop: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <HeaderApp />
             <Container className="App" maxWidth="sm" style={{ textAlign: 'center', marginTop:'30px' }}>
+            <p style={{ textDecoration: 'underline', cursor: 'pointer', color: '#f50057', fontSize: '12px', textAlign: 'left' }} onClick={() => navigate('/')}>Back to Home</p>
                 <Typography variant='h4' style={{ background: 'linear-gradient(to right, red, purple)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom:'20px' }}>
                    Roullete History
                 </Typography>
                 <Divider/>
 
                 {memberList.length > 0 ?
-                <Grid container spacing={2} justifyContent="center" style={{ marginTop: '20px', fontSize: { xs: '10px', sm: '12px', md: '14px', lg: '16px' }, height: '500px', overflow: 'auto' }}>
+                <Grid container spacing={2} justifyContent="center" style={{ marginTop: '20px', fontSize: { xs: '10px', sm: '12px', md: '14px', lg: '16px' }, overflowY: 'auto' }}>
                         {memberList.map((member, index) => (
                         <Grid item xs={3} sm={3} md={3} lg={3} key={member.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
                           <Badge badgeContent={'X'+member.count} color="error" anchorOrigin={{
@@ -76,12 +77,10 @@ function Gallery() {
                     ))}
                 </Grid>
                 :
-                <div style={{ marginTop: '20px', height:'500px' }}>
+                <div style={{ marginTop: '20px' }}>
                     <Typography variant='h6' style={{ background: 'linear-gradient(to right, red, purple)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>No data found</Typography>
                 </div>
                 }
-
-                <Button fullWidth variant='outlined' color='error' onClick={() => navigate('/')}>HOME</Button>
             </Container>
         <FooterApp/>
         </div>
