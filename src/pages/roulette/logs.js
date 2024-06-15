@@ -22,8 +22,8 @@ function Logs() {
 
                 <div style={{ marginTop: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center', height:'500px', overflowY: 'auto', backgroundColor: 'white', borderRadius: '14px', padding: '10px', color: '#f50057' }}>
                     {history.length > 0 ? history.map((item, index) => (
-                        <small key={index} variant='h6'>[{new Date(item.timestamp).toLocaleString()}] You have Obtained {item.memberName}</small>
-                    )) : <Typography variant='h6'>Tidak ada data</Typography>}
+                        <small key={index} variant='h6'>[{new Date(item.timestamp).toLocaleString()}] You have Obtained <span style={{ color: '#f50057', fontWeight: 'bold' }}>{item.memberName}</span></small>
+                    )) : <Typography variant='h6'>No Data</Typography>}
                 </div>
 
                 <Button fullWidth variant='outlined' color='error' style={{ marginTop: '30px' }} onClick={() => navigate('/')}>HOME</Button>
