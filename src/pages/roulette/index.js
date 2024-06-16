@@ -14,7 +14,11 @@ const Roulette = () => {
   const [number, setNumber] = useState(0);
   const [pickNumber, setPickNumber] = useState(0);
   const [isPicking, setIsPicking] = useState(false);
-  const [intervalId, setIntervalId] = useState(null);
+
+  const intervalRef = useRef(null);
+  const latestNumberRef = useRef(number);
+
+  // const [intervalId, setIntervalId] = useState(null);
   const [lineup, setLineup] = useState([]);
 
 //   set linup dengan 16 member acak dari data members masukkan property alias saja ke dalam lineup
@@ -29,17 +33,31 @@ const Roulette = () => {
   };
 
   // Fungsi untuk memulai animasi angka acak
+  // const startRandomNumber = () => {
+  //   const id = setInterval(() => {
+  //     setNumber(getRandomNumber(130));
+  //   }, 100); // Ubah angka setiap 100ms
+  //   setIntervalId(id);
+  // };
+
   const startRandomNumber = () => {
-    const id = setInterval(() => {
-      setNumber(getRandomNumber(130));
+    intervalRef.current = setInterval(() => {
+      const newNumber = getRandomNumber(130);
+      latestNumberRef.current = newNumber;
+      setNumber(newNumber);
     }, 100); // Ubah angka setiap 100ms
-    setIntervalId(id);
   };
 
   // Fungsi untuk menghentikan animasi dan menampilkan angka yang dipilih
+  // const stopRandomNumber = () => {
+  //   clearInterval(intervalId);
+  //   setPickNumber(number);
+  //   setIsPicking(false);
+  // };
+
   const stopRandomNumber = () => {
-    clearInterval(intervalId);
-    setPickNumber(number);
+    clearInterval(intervalRef.current);
+    setPickNumber(latestNumberRef.current);
     setIsPicking(false);
   };
 
@@ -79,7 +97,7 @@ const Roulette = () => {
       if (winners.size >= 48) {
         clearInterval(interval);
       }
-    }, 200); // Tambahkan angka setiap 200ms
+    }, 100); // Tambahkan angka setiap 100ms
   }
 
   const containerRef = useRef(null);
