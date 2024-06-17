@@ -10,7 +10,7 @@ function Gallery() {
     const navigate = useNavigate();
     const [memberList, setMemberList] = useState([]);
     const searchMemberDataByAlias = (alias) => {
-        return members.find(member => member.alias === alias);
+        return members.find(member => member.alias.toLowerCase() === alias.toLowerCase());
     };
 
     useEffect(() => {
