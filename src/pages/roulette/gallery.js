@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { Container, Typography, Divider, Grid, Avatar, Badge } from "@mui/material";
+import { Container, Typography, Divider, Grid, Avatar, Badge, TextField } from "@mui/material";
 import FooterApp from "../../components/FooterApp";
 import HeaderApp from "../../components/HeaderApp";
 import { getHistory, clearHistory } from "../../db";
@@ -45,6 +45,16 @@ function Gallery() {
         window.location.reload();
     };
 
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const filteredMembers = memberList.filter(member =>
+        member.alias.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return(
         <div className='container' style={{ backgroundColor: '#FDECEF', minHeight: '100vh', marginTop: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <HeaderApp />
@@ -62,9 +72,39 @@ function Gallery() {
                 </Typography>
                 <Divider/>
 
-                {memberList.length > 0 ?
+                 {/* Search Bar */}
+                 <TextField
+                    variant="outlined"
+                    fullWidth
+                    placeholder="Search member..."
+                    value={searchQuery}
+                    size='small'
+                    onChange={handleSearchChange}
+                    style={{ marginBottom: '20px', marginTop:'20px' }}
+                    InputProps={{
+                        style: {
+                            border: '2px solid #db5198', // Custom border color and width
+                            borderRadius: '4px' // Custom border radius
+                        }
+                    }}
+                    sx={{
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                                borderColor: '#db5198',
+                            },
+                            '&:hover fieldset': {
+                                borderColor: '#db5198',
+                            },
+                            '&.Mui-focused fieldset': {
+                                borderColor: '#db5198',
+                            },
+                        },
+                    }}
+                />
+
+                {filteredMembers.length > 0 ?
                 <Grid container spacing={2} justifyContent="center" style={{ marginTop: '20px', fontSize: { xs: '10px', sm: '12px', md: '14px', lg: '16px' } }}>
-                        {memberList.map((member, index) => (
+                        {filteredMembers.map((member, index) => (
                         <Grid item xs={3} sm={3} md={3} lg={3} key={member.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
                           <Badge badgeContent={'X'+member.count} color="error" anchorOrigin={{
                             vertical: 'top',
