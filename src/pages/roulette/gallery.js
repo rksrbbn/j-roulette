@@ -67,10 +67,12 @@ function Gallery() {
                     }
                 }}>Clear History</p>
             </div>
-                <Typography variant='h4' style={{ background: 'linear-gradient(to right, red, purple)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom:'20px' }}>
+            
+                <Typography variant='h4' style={{ background: 'linear-gradient(to right, red, purple)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
                    Roulette History
                 </Typography>
-                <Divider/>
+                <small style={{color:'#db5198', marginBottom:'5px'}}>(You Have Obtained <span style={{fontWeight:'bold'}}>{memberList.length}/{members.length}</span> members)</small>
+                <Divider sx={{marginTop:'10px'}}/>
 
                  {/* Search Bar */}
                  <TextField
