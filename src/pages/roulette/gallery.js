@@ -58,7 +58,7 @@ function Gallery() {
                 }}>Clear History</p>
             </div>
                 <Typography variant='h4' style={{ background: 'linear-gradient(to right, red, purple)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom:'20px' }}>
-                   Roullete History
+                   Roulette History
                 </Typography>
                 <Divider/>
 
