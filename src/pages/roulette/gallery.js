@@ -19,7 +19,7 @@ function Gallery() {
             if (historyData.length > 0) {
                 const memberCount = {};
                 historyData.forEach((row) => {
-                    const memberName = row.memberName.trim();
+                    const memberName = row.memberName.trim().toLowerCase();
                     if (!memberCount[memberName]) {
                         memberCount[memberName] = 1;
                     } else {
