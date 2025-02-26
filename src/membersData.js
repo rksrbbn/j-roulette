@@ -78,7 +78,7 @@ export const members = [
       "alias": "Callie",
       "generation": 10,
       "picture": 'assets/member/callista_alifia.webp', 
-      "graduated": false,
+      "graduated": true,
       "trainee": false,
       "popularity": 8, // out of 10
       "vocal": 7, // out of 10
@@ -551,7 +551,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/alya_amanda.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -569,7 +569,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/anindya_ramadhani.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -623,7 +623,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/cathleen_nixie.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -641,7 +641,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/celline_thefani.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -659,7 +659,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/chelsea_davina.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -677,7 +677,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/cynthia_yaputera.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -695,7 +695,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/dena_natalia.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -713,7 +713,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/desy_natalia.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -749,7 +749,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/gendis_mayrannisa.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -821,7 +821,7 @@ export const members = [
   "generation": 11,
   "picture": 'assets/member/michelle_alexandra.webp', 
   "graduated": false,
-  "trainee": true,
+  "trainee": false,
   "popularity": 7.5, // out of 10
   "vocal": 7.5, // out of 10
   "dance": 8, // out of 10
@@ -976,6 +976,80 @@ export const members = [
   "strong": 7, // out of 10
   "sexy": 7.5, // out of 10
   "overall": 7.5, // out of 10
+},
+
+// =========================== GENERASI 13 (TRAINEE) ===========================
+{
+  "name": 'Astrella Virgiananda',
+  "picture": '/assets/member/Astrella_Virgiananda.jpg',
+  "alias": "Virgi",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
+},
+{
+  "name": 'Aulia Riza',
+  "picture": '/assets/member/Aulia_Riza.jpg',
+  "alias": "Auwia",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
+},
+{
+  "name": 'Bong Aprilli',
+  "picture": '/assets/member/Bong_Aprilli.jpg',
+  "alias": "Rilly",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
+},
+{
+  "name": 'Hagia Sopia',
+  "picture": '/assets/member/Hagia_Sopia.jpg',
+  "alias": "Giaa",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
+},
+{
+  "name": 'Humaira Ramadhani',
+  "picture": '/assets/member/Humaira_Ramadhani.jpg',
+  "alias": "Maira",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
+},
+{
+  "name": 'Jacqueline Immanuela',
+  "picture": '/assets/member/Jacqueline_Immanuela.jpg',
+  "alias": "Ekin",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
+},
+{
+  "name": 'Jemima Evodie',
+  "picture": '/assets/member/Jemima_Evodie.jpg',
+  "alias": "Jemima",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
+},
+{
+  "name": 'Mikaela Kusjanto',
+  "picture": '/assets/member/Mikaela_Kusjanto.jpg',
+  "alias": "Mikaela",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
+},
+{
+  "name": 'Nur Intan',
+  "picture": '/assets/member/Nur_Intan.jpg',
+  "alias": "Intan",
+  "generation": 13,
+  "graduated": false,
+  "trainee": true,
 },
 
   
